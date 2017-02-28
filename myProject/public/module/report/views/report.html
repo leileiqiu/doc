@@ -1,0 +1,120 @@
+<div ng-init="getUsers()">
+    <div class="row" style="margin-bottom: 10px;">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <div class="input-group">
+                <button type="button" class="btn btn-default" ng-click="showAddInfo()"><i class="fa fa-plus"></i>增加</button>
+                <!--<button type="button" class="btn btn-default"><i class="fa fa-trash"></i>删除</button>-->
+                <!--<button type="button" class="btn btn-default"><i class="fa fa-pencil"></i>修改</button>-->
+            </div>
+        </div>
+        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-2 col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <div class="input-group">
+                <input type="text" class="form-control" ng-model="filterInfo" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ><i class="fa fa-search"></i>查询</button>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"><b>添加信息</b></h4>
+                </div>
+                <div class="modal-body">
+                        <form class="form-horizontal" name="form" novalidate>
+                            <div class="form-group">
+                                <label for="input1" class="col-sm-2 control-label">日期</label>
+                                <div class="col-sm-10">
+                                    <input  class="form-control" id="input1" placeholder="日期" ng-model="myDate" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input2" class="col-sm-2 control-label">发货厂家</label>
+                                <div class="col-sm-10">
+                                    <input  class="form-control" id="input2" placeholder="发货厂家" ng-model="myCompany" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input3" class="col-sm-2 control-label">规格</label>
+                                <div class="col-sm-10">
+                                    <input  class="form-control" id="input3" placeholder="规格" ng-model="mySpecification" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input4" class="col-sm-2 control-label">批号</label>
+                                <div class="col-sm-10">
+                                    <input  class="form-control" id="input4" placeholder="批号" ng-model="myBatchNumber" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input5" class="col-sm-2 control-label">件数</label>
+                                <div class="col-sm-10">
+                                    <input  class="form-control" id="input5" placeholder="件数" ng-model="myNumber" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input6" class="col-sm-2 control-label">重量</label>
+                                <div class="col-sm-10">
+                                    <input  class="form-control" id="input6" placeholder="重量" ng-model="myWeight" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input7" class="col-sm-2 control-label">价格</label>
+                                <div class="col-sm-10">
+                                    <input  class="form-control" id="input7" placeholder="价格" ng-model="myPrice" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="input8" class="col-sm-2 control-label">金额</label>
+                                <div class="col-sm-10">
+                                    <input  class="form-control" id="input8" placeholder="金额" ng-model="myAmountOfMoney" required>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" ng-click="addInfo()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <table class="table table-bordered table-hover">
+            <tr class="row">
+                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></th>
+                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">日期</th>
+                <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">发货厂家</th>
+                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">规格</th>
+                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">批号</th>
+                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">件数</th>
+                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">重量</th>
+                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">价格</th>
+                <th class="col-lg-1 col-md-1 col-sm-1 col-xs-1">金额</th>
+                <th class="col-lg-2 col-md-2 col-sm-2 col-xs-2">操作</th>
+            </tr>
+            <tr class="row" ng-repeat="user in usersInfo|filter:filterInfo">
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{$index + 1}}</td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{user.myDate}}</td>
+                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">{{user.myCompany}}</td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{user.mySpecification}}</td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{user.myBatchNumber}}</td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{user.myNumber}}</td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{user.myWeight}}</td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{user.myPrice}}</td>
+                <td class="col-lg-1 col-md-1 col-sm-1 col-xs-1">{{user.myAmountOfMoney}}</td>
+                <!--<td><button ng-click="deleteInfo(user)">删除</button></td>-->
+                <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <button type="button" class="btn btn-default btn-md" ng-click="deleteInfo(user)"><i class="fa fa-trash"></i>删除</button>
+                    <button type="button" class="btn btn-default btn-md"><i class="fa fa-pencil"></i>修改</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
